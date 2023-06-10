@@ -1,0 +1,43 @@
+{% extends "base_generic_without_rightbar.html" %}
+
+{% block content%}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/articles.css' %}">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.css"/>
+        <main>
+            <!-- Начало блока с формой и iframe, отвечающих за фоновую загрузку изображения -->
+            <form action="/catalog/article-image-upload/" target="article_image_upload" method="POST" enctype="multipart/form-data" style="display: none;">
+                {% csrf_token %}
+                {{ image.article_image }}
+                <button id="btn-upload" type="submit">Загрузить фото</button>
+            </form>
+            <iframe src="{% url 'article_image_upload' %}" id="article_image_upload" name="article_image_upload" style="display: none;"></iframe>
+            <!-- Конец блока -->
+            <form class="article_text_update_form" action="" method="POST">
+                {% csrf_token %}             
+                    <div>
+                        <p><input type="text" name="title_article" maxlength="100" required="" id="id_title_article" value="{{ article.title_article }}" placeholder="Article title"></p>
+                        <p>{{ form.text_article.label }}: <br> 
+                            <!-- label, который отвечает за вызов input загрузки изображения -->
+                            <label id="label-upload" for="id_article_image">Загрузка файла</label> <br>
+                            <textarea id="id_text_article" name="text_article" class="editor">{{ article.text_article }}</textarea></p>
+                    </div>
+                <button class="sidebar_btn" type="submit">Save changes</button>
+            </form>
+        </main>
+{% endblock %}
+{% block scripts %}
+    {% load static %}
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.js"></script>
+        <script>
+            const editor = Jodit.make('.editor');
+        </script>
+        <script src="{% static 'scripts/text.js' %}"></script>
+        <script src="{% static 'scripts/text_render.js' %}"></script>
+        <script>
+            text_wrapping(wrapped_class = 'editor', render_class = 'jodit-wysiwyg');
+            render_text(text_class = 'jodit-wysiwyg');
+            clear_danger_elements(text_area='editor', redactor='jodit-wysiwyg')
+        </script>
+        <script src="{% static 'scripts/article.js' %}"></script>
+{% endblock %}

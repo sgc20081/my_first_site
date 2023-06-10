@@ -1,0 +1,40 @@
+{% load static %}
+<div class="likes_container" id="likes_container_{{ likes.id }}">
+    <div class="users_liked_container popup" id="users_liked_container_{{likes.id}}" style="display: none;">
+        <div class="users_liked_container_title">
+            Пользователи, которым понравилось
+        </div>
+        <div class="users_liked_container_body scroll_line">
+            {% for user in likes.users_likes %}
+                <div class="user_like_container">
+                    <a href="{% url 'user_profile' user.username %}">
+                        {% load users_tags %}
+                        {% default_photo_check user as photo_check %}
+                        {% if photo_check %}
+                            <div class="profile_photo_container profile_photo_like_container">
+                                <img src="{{ user.profile_photo_circle.url }}" alt="">
+                            </div>
+                        {% else %}
+                            <div class="profile_photo_container_default profile_photo_like_container_default">
+                                <img src="{% static 'images/design/login_icon.svg' %}" alt="">
+                            </div>
+                        {% endif %}
+                        {{ user.username }}
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="label_likes_container" id="label_likes_container_{{ likes.id }}">
+        {% if likes.user_liked %}
+            <label for="{{ likes.id }}">
+                <img class="like_img" src="{% static 'images/like.png' %}" alt="" type="submit">
+            </label> 
+        {% else %}
+            <label for="{{ likes.id }}">
+                <img class="like_img" src="{% static 'images/unlike.png' %}" alt="" type="submit">
+            </label>
+        {% endif %}
+        {{ likes.number_of_likes }}
+    </div>
+</div>

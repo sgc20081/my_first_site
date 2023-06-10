@@ -1,0 +1,109 @@
+<div class="comments_template_container">
+{% load static %}
+{% load users_tags %}
+{% if user.is_authenticated %}
+    <div class="new_comment_form_container">
+        <form class="comment_form new_comment_form" id="new_comment_form_{{ comments.allcomments_id }}" action="" method="post">
+            {% csrf_token %}
+            <textarea name="comment_text" cols="40" rows="10" required="" id="id_comment_text" placeholder="Write your comment..."></textarea><br>
+            <button class="sidebar_btn" id="new_comm_btn_submit" type="submit">Publish comment</button>
+        </form>
+    </div>
+{% else %}
+    <p>Only authorized users can leave comments</p>
+{% endif %}
+{% for par_comm in comments.comments %}
+    <div class="comment base_comment allcomments_id_{{ comments.allcomments_id }}" id="comment_{{par_comm.comment.id}}">
+        <div class="comment_author_profilephoto_container">
+            <img class="comment_author_profilephoto" src="{{ par_comm.comment.author.profile_photo_circle.url }}" alt="">
+        </div>
+        <div class="comment_body_container">
+            <div class="comment_info_container">
+                <a href="{% url 'user_profile' par_comm.comment.author.username %}">{{par_comm.comment.author.username}}</a> 
+                <div class="publish_time comment_publish_time">posted on {% format_time par_comm.comment.publish_time %}</div>
+            </div>
+            <div class="comment_text_container">
+                {{par_comm.comment.comment_text}}
+            </div>
+            <div class="comment_options_container">
+                {% if user.is_authenticated %}
+                    <div class="comment_reply_btn_container">
+                        <button class="comment_reply_btn allcomm_id_{{ comments.allcomments_id }}" id="comment_reply_btn_{{par_comm.comment.id}}" title="Ответить на комментарий" style="display: none;">ОТВЕТИТЬ</button>
+                        <label for="comment_reply_btn_{{par_comm.comment.id}}">
+                            <img class="like_img" src="{% static 'images/reply_icon.png' %}" alt="" type="submit">
+                        </label>
+                    </div>
+                    {% if par_comm.comment.author == request.user %}
+                        <div class="comment_delete_btn_contaiiner">
+                            <a href="{% url 'comment-delete' par_comm.comment.id %}">
+                                <img class="like_img" src="{% static 'images/delete_icon.png' %}" alt="" type="submit">
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                <div class="comment_likes_contaiiner">
+                    {% get_likes_tag request par_comm.comment as likes %}
+                    {% include "likes_template.html" %}
+                </div>
+                <form class="comment_form reply_comment_form allcomments_id_{{ comments.allcomments_id }}" action="{% url 'comment-reply' %}" method="post" id="comment_reply_form_{{par_comm.comment.id}}" style="display: none;">
+                    {% csrf_token %}
+                    <textarea name="comment_text" cols="40" rows="10" required="" id="id_comment_text"></textarea><br>
+                    <button id="comment_sumbit_btn_{{par_comm.comment.id}}" type="submit" disabled style="display: none;">Отправить комментарий</button>
+                    <label class="comment_submit_lable disabled" for="comment_sumbit_btn_{{par_comm.comment.id}}" value="">Send</label>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% load users_tags %}
+    {% while_child request par_comm.comment as child_array %}
+    {% if child_array != False %}
+        {% for child_comm in child_array %}
+            <div class="comment child_comment parent_comm_{{ child_comm.comment.parent_comm_id }}" id="comment_{{child_comm.comment.id}}">
+                <div class="comment_author_profilephoto_container">
+                    <img class="comment_author_profilephoto" src="{{ child_comm.comment.author.profile_photo_circle.url }}" alt="">
+                </div>
+                <div class="comment_body_container">
+                    <div class="comment_info_container">
+                        <a href="{% url 'user_profile' child_comm.comment.author.username %}">{{child_comm.comment.author.username}}</a>
+                        <div class="publish_time comment_publish_time">posted on {% format_time child_comm.comment.publish_time %}</div>
+                    </div>
+                    <div class="parent_comm_text">
+                        <p>{{ child_comm.parent_comm.author.username }}</p>
+                        <p>{{ child_comm.parent_comm.comment_text }}</p>
+                    </div>
+                    <div class="comment_text_container">
+                        {{child_comm.comment.comment_text}}
+                    </div>
+                    <div class="comment_options_container">
+                        {% if user.is_authenticated %}
+                                <div class="comment_reply_btn_container">
+                                    <button class="comment_reply_btn allcomm_id_{{ comments.allcomments_id }}" id="comment_reply_btn_{{child_comm.comment.id}}" title="Ответить на комментарий" style="display: none;">ОТВЕТИТЬ</button>
+                                    <label for="comment_reply_btn_{{child_comm.comment.id}}">
+                                        <img class="like_img" src="{% static 'images/reply_icon.png' %}" alt="" type="submit">
+                                    </label>
+                                </div>
+                                {% if child_comm.comment.author == request.user %}
+                                    <div class="comment_delete_btn_contaiiner">
+                                            <a href="{% url 'comment-delete' child_comm.comment.id %}">
+                                                <img class="like_img" src="{% static 'images/delete_icon.png' %}" alt="" type="submit">
+                                            </a>
+                                    </div>
+                                {% endif %}
+                        {% endif %}
+                        <div class="comment_likes_contaiiner">
+                            {% get_likes_tag request child_comm.comment as likes %}
+                            {% include "likes_template.html" %}
+                        </div>
+                    </div>
+                    <form class="comment_form reply_comment_form allcomments_id_{{ comments.allcomments_id }}" action="{% url 'comment-reply' %}" method="post" id="comment_reply_form_{{child_comm.comment.id}}" style="display: none;">
+                        {% csrf_token %}
+                        <textarea name="comment_text" cols="40" rows="10" required="" id="id_comment_text"></textarea><br>
+                        <button id="comment_sumbit_btn_{{child_comm.comment.id}}" type="submit" disabled style="display: none;">Отправить комментарий</button>
+                        <label class="comment_submit_lable disabled" for="comment_sumbit_btn_{{child_comm.comment.id}}" value="">Send</label>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
+    {%endif%}
+{% endfor %}
+</div>

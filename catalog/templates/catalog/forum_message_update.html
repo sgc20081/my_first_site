@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <textarea name="message" cols="40" rows="10" maxlength="1000" required="" id="id_message">{{ message.message }}</textarea>
+        <button type="submit">Сохранить</button>
+    </form>
+</html>

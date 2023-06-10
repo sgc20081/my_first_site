@@ -1,0 +1,39 @@
+{% extends "base_generic_without_rightbar.html" %}
+{% block content %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'styles/profile_update.css' %}">
+  <main>
+    <div class="profile_form_container">
+      <form class="profile_update_form" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="profile_photo_form_container">
+          {% load users_tags %}
+          {% default_photo_check request.user as photo_check %}
+          {% if photo_check %}
+              <p><img class="profile_photo_in_profile" src="{{ request.user.profile_photo_circle.url }}" alt=""></p>
+          {% else %}
+              <img class="profile_photo_in_profile_default" src="{% static 'images/design/login_icon.svg' %}" alt="">
+          {% endif %}
+          <p><input type="file" name="profile_photo" accept="image/*" id="id_profile_photo" style="display: none"></p>
+          <p><label class="sidebar_btn upload_photo_submit" for="id_profile_photo">Upload photo</label></p>
+        </div>
+        <div class="profile_data_form_conatiner">
+            {% if form.username.errors %}
+              <p><input type="text" name="username" maxlength="20" required="" id="id_username" value="{{user.username}}" placeholder="Username*"></p>
+              <p class="error" id="id_username_error">Пользователь с таким именем уже существует</p>
+            {% else %}
+              <p><input type="text" name="username" maxlength="20" required="" id="id_username" value="{{user.username}}" placeholder="Username*"></p>
+            {% endif %}
+            <p><input type="text" name="first_name" maxlength="20" id="id_first_name" value="{{user.first_name}}" placeholder="First name"></p>
+            <p><input type="text" name="last_name" maxlength="20" id="id_last_name" value="{{user.last_name}}" placeholder="Second name"></p>
+            <p class="bold_text"><a href="{% url 'password_update' %}">Change password</a></p>
+            <button type="submit" id="submit_btn_profile_form" style="display: none;">Update profile</button>
+        </div>
+      </form>
+    </div>
+    <label class="sidebar_btn update_profile_submit" for="submit_btn_profile_form">Update profile</label>
+  </main>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'scripts/profile_update.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base_generic_without_rightbar.html" %}
+
+{% block title %}<title>My first site</title>{% endblock %}
+
+{% block content %}
+    <main>
+        {% if article_list %}
+        <ul>
+
+            {% for article in article_list %}
+            <li>
+                <a href="{{ article.get_absolute_url }}">{{ article.title_article }}</a>
+            </li>
+            {% endfor %}
+            {% else %}
+                <p>There are no articles.</p>   
+        </ul>
+        {% endif %}
+        <a href="{% url 'article_new' %}">Создать новую статью</a>
+    </main>
+{% endblock %}

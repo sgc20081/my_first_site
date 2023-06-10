@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    {% block title %}<title>My first site</title>{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script>
+    /*
+        var originalLog = console.log;
+        var originalError = console.error;
+        var originalWarn = console.warn;
+        var originalInfo = console.info;
+        var deviceModel = navigator.userAgent;
+        // Сохраняем ссылку на исходную функцию fetch
+        var originalFetch = window.fetch;
+
+        // Перехватываем вывод в консоль и отправляем сообщения на сервер
+        function interceptConsoleMessages() {
+    
+        console.log = function(message) {
+            originalLog.apply(console, arguments);
+            sendConsoleMessage(deviceModel, 'log', message);
+        };
+    
+        console.error = function(message) {
+            originalError.apply(console, arguments);
+            sendConsoleMessage(deviceModel, '!!!ERROR!!!', message);
+        };
+    
+        console.warn = function(message) {
+            originalWarn.apply(console, arguments);
+            sendConsoleMessage(deviceModel, 'warn', message);
+        };
+    
+        console.info = function(message) {
+            originalInfo.apply(console, arguments);
+            sendConsoleMessage(deviceModel, 'info', message);
+        };
+        }
+    
+        // Отправляем сообщение на сервер с помощью AJAX-запроса
+        function sendConsoleMessage(device, type, message) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'log/', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        var data = JSON.stringify({device: device, type: type, message: message });
+        xhr.send(data);
+        }
+
+        // Получаем метод текущего запроса и URL
+        function getCurrentRequestInfo() {
+        var performance = window.performance || window.mozPerformance || window.msPerformance || window.webkitPerformance || {};
+        var entries = performance.getEntriesByType('navigation') || [];
+        var currentEntry = entries[0] || {};
+        var currentRequestMethod = currentEntry.initiatorType || '';
+        var currentRequestURL = window.location.href;
+
+        return {
+            method: currentRequestMethod,
+            url: currentRequestURL
+        };
+        }
+        var requestInfo = getCurrentRequestInfo();
+        sendConsoleMessage(deviceModel, 'request', requestInfo);
+    
+        // Вызываем функцию для перехвата сообщений в консоли
+        interceptConsoleMessages();
+        */
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <!-- Файл JavaScript jQuery UI -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Файл CSS jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Подключение jQuery Mobile -->
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+    {% if user.is_authenticated  %}
+        {% include 'notifications.html' %}
+    {% endif %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/likes.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/comments.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/chat.css' %}">
+    <link rel="stylesheet" href="{% static 'plugins/croppie/croppie.css' %}">
+    {% block style %}
+    {% endblock %}
+</head>
+<body>
+    <div class="mobile_sidebar mobile">
+        <img class="mobile_navigation_menu_btn" src="{% static 'images/m-menu.png' %}" alt="" srcset="">
+        {% if user.is_authenticated %}
+            <span class="login_link_mobile" href=""><div class="profile_btn_mobile">
+                {% load users_tags %}
+                {% default_photo_check request.user as photo_check %}
+                {% if photo_check %}
+                    <div class="profile_photo_container" ><img src="{{ request.user.profile_photo_circle.url }}" alt=""></div>
+                {% else %}
+                    <img class="login_icon" src="{% static 'images/design/login_icon.svg' %}" alt="">
+                {% endif %}
+                {{ request.user.username }}
+            </div></span>
+            <div class="popup_profile_menu_mobile" style="display: none;">
+                <p><a class="nav_link" href="{% url 'profile' %}">Profile</a></p>
+                <p><a class="nav_link" href="{% url 'logout' %}?next={{request.path}}">Logout</a></p>
+            </div>
+        {% else %}
+            <label class="nav_link login_link login_link_mobile" href="{% url 'user_login' %}?next={{request.path}}"><div class="profile_btn_mobile">
+                <img class="login_icon" src="{% static 'images/design/login_icon.svg' %}" alt="">Login
+            </div></label>
+        {% endif %}
+    </div>
+    <div class="mobile_nav_menu"></div>
+    <div class="sideBarDesktop">
+        <img class="logo" src="{% static 'images/design/logo.svg' %}" alt="">
+        <div class="nav_btns_containers nav_btns_containers_mobile">
+            <a class="nav_link nav_link_mobile" href="{% url 'index' %}"><div class="sidebar_btn nav_btn btn">Home</div></a>
+            <a class="nav_link nav_link_mobile" href="{% url 'articles' %}"><div class="sidebar_btn nav_btn btn">Articles</div></a>
+            <a class="nav_link nav_link_mobile" href="{% url 'gallery' %}"><div class="sidebar_btn nav_btn btn">Gallery</div></a>
+            <a class="nav_link nav_link_mobile" href="{% url 'forum' %}"><div class="sidebar_btn nav_btn btn">Forum</div></a>
+        </div>
+        {% if user.is_authenticated %}
+            <a class="nav_link login_link nav_link_mobile" href=""><div class="sidebar_btn profile_btn btn">
+                {% load users_tags %}
+                {% default_photo_check request.user as photo_check %}
+                {% if photo_check %}
+                    <div class="profile_photo_container" ><img src="{{ request.user.profile_photo_circle.url }}" alt=""></div>
+                {% else %}
+                    <img class="login_icon" src="{% static 'images/design/login_icon.svg' %}" alt="">
+                {% endif %}
+                {{ request.user.username }}
+            </div></a>
+            <div class="popup_profile_menu" style="display: none;">
+                <p><a class="nav_link" href="{% url 'profile' %}">Profile</a></p>
+                <p><a class="nav_link" href="{% url 'logout' %}?next={{request.path}}">Logout</a></p>
+            </div>
+        {% else %}
+            <label class="nav_link login_link" href="{% url 'user_login' %}?next={{request.path}}"><div class="sidebar_btn login_btn btn">
+                <img class="login_icon" src="{% static 'images/design/login_icon.svg' %}" alt="">Login
+            </div></label>
+        {% endif %}
+    </div>
+    {% include 'chat_popup.html' %}
+    <div class="content">
+        {% block content %}{% endblock %}
+        <div class="rightBar">
+            {% block rightBar %}{% endblock %}
+        </div>
+    </div>
+</body>
+<script src="{% static 'scripts/main.js' %}"></script>
+<script src="{% static 'scripts/mobile.js' %}"></script>
+<script src="{% static 'scripts/likes.js' %}"></script>
+<script src="{% static 'scripts/comments.js' %}"></script>
+<script src="{% static 'scripts/login.js' %}"></script>
+<script src="{% static 'plugins/croppie/croppie.js' %}"></script>
+{% block scripts %}{% endblock %}
+</html>

@@ -1,0 +1,19 @@
+{% extends "base_generic_without_rightbar.html" %}
+
+{% block title %}<title>My first site</title>{% endblock %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'styles/main_page.css' %}">
+    <div class="main_page_header">
+            <p class="main_page_header_text empty main_page_header_text_mobile">THIS IS</p>
+            <p class="main_page_header_text main_page_header_text_mobile">MY SITE</p>
+        <img class="main_page_img" src="{% static 'images/design/main_page_image.svg' %}" alt="">
+        <div class="about_author_container">
+            <p class="main_page_name_text">Sergey Marich</p>
+            <p class="main_page_job_title_text">Back-end Developer</p>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+
+{% endblock %}

@@ -1,0 +1,161 @@
+.chat {
+    width: 100%;
+}
+
+.chat_msg {
+    display: flex;
+
+    margin-bottom: 7px;
+}
+
+.chat_author_profile_photo, .chat_text_container {
+    display: inline-block;
+}
+
+.chat_author_profile_photo {
+    margin-bottom: 5px;
+    margin-top: auto;
+}
+
+.chat-log {
+    width: 100%;
+
+    font-family: 'Inter';
+    font-weight: normal;
+    max-height: 325px;
+    overflow-y: auto;
+    
+    display: block;
+    justify-content: space-between;
+    
+    scrollbar-width: thin;
+    scrollbar-color: #6b6b6b #424242;
+}
+
+/* Установка ширины полосы прокрутки */
+.chat-log::-webkit-scrollbar { 
+    width: 4px;
+}
+
+/* Стилизация бегунка полосы прокрутки */
+.chat-log::-webkit-scrollbar-thumb {
+    
+    background: #6b6b6b;
+    border-radius: 12px;
+}
+
+/* Стилизация дорожки полосы прокрутки */
+.chat-log::-webkit-scrollbar-track {
+
+    background: #424242;
+    border-radius: 12px;
+}
+
+.chat_profile_photo_default {
+
+}
+
+.chat_text_container {
+    width: fit-content;
+    max-width: 95%;
+    padding-left: 12px;
+    padding-right: 12px;
+    /*margin-bottom: 7px;*/
+    background: #020119;
+    border: 1px solid #572F8A;
+    border-radius: 8px;
+    word-wrap: break-word;
+    white-space: normal;
+
+    text-align: left;
+
+    margin-right: auto;
+    margin-left: 0;
+}
+
+
+.this_user_message{
+    text-align: right;
+
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+.chat-message-submit-lable {
+    display: block;
+    text-align: right;
+
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+.chat-message-submit-lable.disabled{
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chat-message-submit-lable.enabled {
+    cursor: pointer;
+}
+
+.user_list p a{
+    display: flex;
+    align-items: center;
+}
+
+.user_list p a img{
+    margin-right: 15px;
+
+    width: 15%;
+    height: auto;
+}
+
+
+/* ----------- Desktop ----------- */
+
+@media screen and (min-width: 1001px) {
+
+    .chat-send-msg-container {
+        margin-top: 15px;
+    }
+
+    .chat_author_profile_photo .profile_photo_container, .chat_author_profile_photo .profile_photo_container_default {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+/* ----------- Mobile ----------- */
+
+@media screen and (max-width: 1000px) {
+
+    .chat_author_profile_photo {
+        width: 40px;
+        height: 40px;
+
+        margin-right: 10px;
+    }
+
+    .chat_author_profile_photo .profile_photo_container, 
+    .chat_author_profile_photo .profile_photo_container_default,
+    .chat_author_profile_photo .profile_photo_container_default img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .chat_text_container {
+        max-width: 82%;
+
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .chat_msg_publish_time p {
+        font-size: 12px;
+    }
+
+    .chat-send-msg-container {
+        margin-top: 15px;
+    }
+}

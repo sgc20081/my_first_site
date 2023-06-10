@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <img class="article-image" src="{{ image_src.article_image.url }}" alt="">
+</body>
+{% load static %}
+<script>
+    document.querySelector('.article-image').addEventListener('change', window.parent.img_add())
+</script>
+</html>

@@ -1,0 +1,32 @@
+.table_of_contents_body ul {
+    padding-left: 20px;
+}
+
+.text_article img {
+    max-width: 100%;
+    height: auto;
+}
+
+.article_new_form .sidebar_btn, .article_text_update_form .sidebar_btn {
+    margin-left: auto;
+}
+
+.article_options_container {
+    width: 100%;
+}
+
+.article_options_btn {
+    width: fit-content;
+
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* ----------- Mobile ----------- */
+
+@media screen and (max-width: 1000px) { 
+
+    .table_of_contents_body ul {
+        padding-left: 50px;
+    }
+ }

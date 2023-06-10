@@ -1,0 +1,45 @@
+{% extends "base_generic_without_rightbar.html" %}
+
+{% block content%}
+    {% load static %}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.css"/>
+    <link rel="stylesheet" href="{% static 'styles/articles.css' %}">
+    <main>
+        <!-- Начало блока с формой и iframe, отвечающих за фоновую загрузку изображения -->
+        <form action="/catalog/article-image-upload/" target="article_image_upload" method="POST" enctype="multipart/form-data" style="display: none;">
+            {% csrf_token %}
+            {{ image.article_image }}
+            <button id="btn-upload" type="submit">Загрузить фото</button>
+        </form>
+        <iframe src="{% url 'article_image_upload' %}" id="article_image_upload" name="article_image_upload" style="display: none;"></iframe>
+        <!-- Конец блока -->
+        <form class="article_new_form" action="" method="POST">
+            {% csrf_token %}             
+                <div>
+                    <p><input type="text" name="title_article" maxlength="100" required="" id="id_title_article" placeholder="Article title"></p>
+                    <p style="text-align: right;"><!-- label, который отвечает за вызов input загрузки изображения -->
+                        <label id="label-upload" for="id_article_image">Upload image</label>
+                    </p>
+                    <p><textarea id="id_text_article" name="text_article" class="editor"></textarea></p> 
+                    {% for error in field.errors %}
+                        <small style="color: red">{{ error }}</small>
+                    {% endfor %}
+                </div>
+            <button class="sidebar_btn" type="submit">Create article</button>
+        </form>
+    </main>
+{% endblock %}
+{% block scripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.js"></script>
+    <script>
+        const editor = Jodit.make('.editor');
+    </script>
+    {% load static %}
+    <script src="{% static 'scripts/text.js' %}"></script>
+    <script src="{% static 'scripts/text_render.js' %}"></script>
+    <script>
+        clear_danger_elements(text_area='editor', redactor='jodit-wysiwyg')
+        //wrapping_in_redactor(c)
+    </script>
+    <script src="{% static 'scripts/article.js' %}"></script>
+{% endblock %}

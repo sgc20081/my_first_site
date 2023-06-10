@@ -1,0 +1,24 @@
+{% extends "base_generic_without_rightbar.html" %}
+
+{% block title %}<title>My first site</title>{% endblock %}
+
+{% block content %}
+    <main>
+        {% if forum_list %}
+        <ul>
+
+            {% for forum in forum_list %}
+            <li>
+                <a href="{{ forum.get_absolute_url }}">{{ forum.title_forum }}</a>
+            </li>
+            {% endfor %}
+            {% else %}
+                <p>There are no forum theme.</p>   
+        </ul>
+        {% endif %}
+        <a href="{% url 'forum_new_theme' %}">Создать новую тему</a>
+    
+    </main>
+
+{% endblock %}
+{% block rightBar %}<p>Dynamic content</p>{% endblock %}

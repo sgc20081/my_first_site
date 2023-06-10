@@ -1,0 +1,84 @@
+{% extends "base_generic.html" %}
+
+{% block title %}<title>My first site</title>{% endblock %}
+{% block content %}
+{% load static %}
+    <main>
+        <div class="chat">
+            <div class="unread_msgs_array" style="display: none;">
+                {% for msg in unread_msgs %}
+                    <p class="unread_chat_msg" id="unread_chat_msg_{{msg.id}}">{{ msg.id }}</p>
+                {% endfor %}
+                <p class="last_read_msg" id="last_read_msg">{{ last_read_msg_id }}</p>
+                <p class="first_room_msg" id="first_room_msg">{{ first_room_msg_id }}</p>
+            </div>
+            <div class="chat-log" cols="100" rows="20">
+                {% for message in chat %}
+                    {% if request.user == message.author %}
+                        <div class="chat_msg" id="chat_msg_{{ message.id }}">
+                                <div class="chat_text_container this_user_message">
+                                <!-- <p><a href="{% url 'user_profile' message.author.username %}"><img  class = "sideBarProfilePhoto" src="{{ message.author.profile_photo.url }}" alt=""> {{ message.author.username }}</a> {{ message.publish_time }} </p> -->
+                                <p>{{ message.message }}</p>
+                                <div class="chat_msg_publish_time"><p>{{ message.publish_time }}</p></div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="chat_msg" id="chat_msg_{{ message.id }}">
+                            <div class="chat_author_profile_photo">
+                                {% load users_tags %}
+                                {% default_photo_check message.author as photo_check %}
+                                {% if photo_check %}
+                                    <div class="profile_photo_container">
+                                        <img src="{{ message.author.profile_photo_circle.url }}" alt="">
+                                    </div>
+                                {% else %}
+                                    <div class="profile_photo_container_default">
+                                        <img src="{% static 'images/design/login_icon.svg' %}" alt="">
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="chat_text_container">
+                                <div class="chat_msg_autor_container">
+                                    <a href="{% url 'user_profile' message.author.username %}">
+                                        <p>{{ message.author.username }}</p>
+                                    </a>
+                                </div>
+                                <p>{{ message.message }}</p>
+                                <div class="chat_msg_publish_time"><p>{{ message.publish_time }}</p></div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="chat-send-msg-container">
+                <input id="chat-message-input" type="text" placeholder="Write here..."><br>
+                <label class="chat-message-submit-lable disabled" for="chat-message-submit" value="">Send</label>
+                <button class="chat-message-submit" id="chat-message-submit" type="button" value="" disabled style="display: none;">Send</button>
+            </div>
+            {{ room_name|json_script:"room-name" }}
+            {{ user.username|json_script:"author_message" }}
+            {% load users_tags %}
+            {% default_photo_check request.user as photo_check %}
+            {% if photo_check %}
+                <p style="display: none;"><img class="profile_photo_in_profile" id="profile_photo_for_chat" src="{{ request.user.profile_photo_circle.url }}" alt=""></p>
+            {% else %}
+                <img class="login_icon" id="profile_photo_for_chat" src="{% static 'images/design/login_icon.svg' %}" alt="" style="display: none;">
+            {% endif %}   
+            {% load static %}
+            <script src="{% static 'scripts/chat_room.js' %}"></script>
+        </div>
+    </main>
+{% endblock %}
+{% block rightBar %}
+    <div class="chat_options_container">
+        <div class="chat_user_list_container scroll_line">
+            <p>Online users:</p>
+            <p class="user_list scroll_line"></p>
+        </div>
+        <div class="sidebar_btn leave_chat_room_btn">Leave chat</div>
+    </div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}
+
+

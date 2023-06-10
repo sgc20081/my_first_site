@@ -1,0 +1,17 @@
+{% extends "base_generic_without_rightbar.html" %}
+
+{% block content%}
+<head>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.css"/>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/forum_theme.css' %}">
+</head>
+    <main>
+        <form method="post">{% csrf_token %}
+            <p>Are you sure you want to delete "{{ object }}"?</p>
+            {{ form }}
+            <input type="submit" value="Confirm">
+        </form>
+    </main>
+{% endblock %}
+{% block rightBar %}<p>Dynamic content</p>{% endblock %}

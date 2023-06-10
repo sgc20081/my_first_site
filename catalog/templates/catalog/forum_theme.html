@@ -1,0 +1,119 @@
+{% extends "base_generic_without_rightbar.html" %}
+
+{% block content%}
+<head>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.css"/>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/forum_theme.css' %}">
+</head>
+    <main>
+    {% load users_tags %}
+        <div class="forum_message_container" id="forum_message_main_0">
+            <div class="forum_author_profile">
+                <div class="forum_author_profile_photo"><img class="forum_author_profile_photo" src="{{ forum.author.profile_photo_circle.url }}"></div>
+                <div class="forum_author_message"><p><a href="{%url 'user_profile' forum.author.username %}">{{ forum.author.username }}</a></p></div>
+            </div>
+            <div class="forum_message_body">
+                <div class="forum_message_info">
+                    <div class="forum_message_publish_time publish_time">posted on {% format_time forum.publish_time %}</div>
+                    <div class="forum_message_buttons">
+                        {% if user.is_authenticated %}
+                            <button class="quote" id="qute_btn_0" style="display: none;"></button>
+                            <label class="icon_label" for="qute_btn_0">
+                                <img class="like_img" src="{% static 'images/reply_icon.png' %}" alt="" type="submit">
+                            </label>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="forum_message_text">{{ forum.first_message }}</div>
+            </div>
+        </div>
+        <hr>
+        {% for forummessage in message_list %}
+        <div class="forum_message_container" id="forum_message_main_{{ forummessage.id }}">
+            <div class="forum_author_profile">
+                <div class="forum_author_profile_photo"><img class="forum_author_profile_photo" src="{{ forummessage.author.profile_photo_circle.url }}"></div>
+                <div class="forum_author_message"><p><a href="{%url 'user_profile' forummessage.author.username %}">{{ forummessage.author.username }}</a></p></div>
+            </div>
+            <div class="forum_message_body">
+                <div class="forum_message_info">
+                    <div class="forum_message_publish_time publish_time"><p>posted on {% format_time forummessage.publish_time %}</p></div>
+                    <div class="forum_message_buttons">
+                        {% if forummessage.author == request.user %}
+                            <a href="{% url 'forum_message_update' forum.id forummessage.id %}?page={{ page }}#id_message_field"><img class="like_img icon_label" src="{% static 'images/editing_icon.png' %}" alt="" type="submit"></a>
+                        <img class="like_img icon_label delete forum_btn" id="delete_btn_{{ forummessage.id }}" src="{% static 'images/delete_icon.png' %}" alt="" type="submit">
+                            <div class="confirm_delete_forum_message popup" id="{{ forummessage.id }}" style="display: none;">
+                                <p>Вы уверены, что хотите удалить сообщение?</p>
+                                <a class="btn_link" href="{% url 'forum_message_delete' forum.id forummessage.id %}">Да, уверен</a>
+                            </div>
+                        {% endif %}
+                        {% if user.is_authenticated %}
+                            <button class="quote forum_btn" id="qute_btn_{{ forummessage.id }}" style="display: none;"></button>
+                            <label class="icon_label" for="qute_btn_{{ forummessage.id }}">
+                                <img class="like_img" src="{% static 'images/reply_icon.png' %}" alt="" type="submit">
+                            </label>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="forum_message_text">
+                    {% autoescape off %}
+                        <div class="text"><p>{{ forummessage.message }}</p></div>
+                    {% endautoescape %}
+                </div>
+            </div>
+        </div> 
+        {% endfor %}
+        </ul>
+        <div class="pagination">
+            <span class="step-links">
+                {% if message_list.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ message_list.previous_page_number }}">previous</a>
+                {% endif %}
+        
+                <span class="current">
+                    Page {{ message_list.number }} of {{ message_list.paginator.num_pages }}.
+                </span>
+        
+                {% if message_list.has_next %}
+                    <a href="?page={{ message_list.next_page_number }}">next</a>
+                    <a href="?page={{ message_list.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+                <form action="" method="POST"> 
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                        <div>
+                            <p id="id_message_field">{{ field.label }}: <br> 
+                                <textarea class="editor text" name="message" cols="40" rows="10" maxlength="1000" required="" id="id_message">{{ message.message }}</textarea>
+                            </p> 
+                            {% for error in field.errors %}
+                                <small style="color: red">{{ error }}</small>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" value="Save">Отправить</button>
+                </form>
+            {% else %}
+                <p class="athenticate_need_msg">Only authorized users can post messages</p>
+            {% endif %}
+        </div>
+    </main>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jodit/3.24.2/jodit.min.js"></script>
+    <script>
+        const editor = Jodit.make('.editor');
+    </script>
+    {% load static %}
+    <script src="{% static 'scripts/forum.js' %}"></script>
+    <script src="{% static 'scripts/text.js' %}"></script>
+    <script src="{% static 'scripts/text_render.js' %}"></script>
+    <script>
+        render_text(text_class = 'text');
+        render_text(text_class = 'jodit-wysiwyg')
+    </script>
+{% endblock %}
+{% block rightBar %}<p>Dynamic content</p>{% endblock %}

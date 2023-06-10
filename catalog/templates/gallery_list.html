@@ -1,0 +1,14 @@
+{% extends "base_generic_without_rightbar.html" %}
+
+{% block title %}<title>Gallery</title>{% endblock %}
+
+{% block content %}
+    <main>
+        {% for gallery in gallery_list %}
+            <a href="{% url 'gallery_view' gallery.author.username %}">{{ gallery.author.username }}</a><br>
+        {% endfor %}
+        {% if gallery_check and user.is_authenticated %}
+            <a href="{% url 'gallery_create' %}">Создать галлерею</a><br>
+        {% endif %}
+    </main>
+{% endblock %}

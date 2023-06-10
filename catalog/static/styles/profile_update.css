@@ -1,0 +1,147 @@
+hr {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.profile_form_container form{
+    width: 100%;
+}
+
+.profile_photo_in_profile_default, .profile_photo_in_profile {
+    display: flex;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile_photo_in_profile{
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 100%;
+}
+
+.sidebar_btn{
+    display: flex;
+}
+
+.upload_photo_submit, .update_profile_submit{
+    width: fit-content;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.update_profile_submit{
+    margin-top: 2%;
+
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+/* ----------- Desktop ----------- */
+
+@media screen and (min-width: 1001px) {
+
+    .profile_form_container form {
+        display: inline-flex;
+    }
+
+    .profile_photo_form_container {
+        min-width: 50%;
+        max-width: 50%;
+    
+        margin-right: 40px;
+    }
+
+    .profile_photo_form_container img, .profile_photo_info_container img {
+        width: 50%;
+        height: auto;
+    }
+
+    .profile_data_form_conatiner {
+        width: 50%;
+    }
+    
+    .profile_info_container {
+        display: inline-flex;
+    
+        width: 100%;
+    }
+
+    .profile_photo_info_container {
+        min-width: 50%;
+        max-width: 50%;
+    
+        margin-right: 40px;
+    }
+
+    .profile_photo_in_profile {
+        min-width: 50%;
+        max-width: 50%;
+    }
+
+    .profile_data_conatiner {
+        width: 50%;
+    }
+    
+}
+
+/* ----------- Mobile ----------- */
+
+@media screen and (max-width: 1000px) {
+
+    .profile_form_container form{
+        display: inline-block;
+    }
+
+    .profile_info_container {  
+        width: 100%;
+    }
+
+    .profile_photo_info_container, .profile_photo_form_container{
+        width: 75%;
+
+        margin-right: auto;
+        margin-left: auto;
+
+        margin-bottom: 15px;
+    }
+
+    .profile_photo_form_container img, .profile_photo_info_container img {
+        width: 50%;
+        height: auto;
+    }
+
+    .profile_photo_in_profile {
+        width: 100%;
+    }
+
+    .profile_data_conatiner, .profile_data_form_conatiner {
+        width: 100%;
+    }
+
+    .profile_data_form_conatiner {
+        text-align: center;
+    }
+
+    .update_profile_submit {
+        margin-bottom: 25px;
+    }
+
+    .popup_ajax_content {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
+    .cr-slider::-moz-range-thumb {
+        height: 50px;
+        width: 50px;
+    }
+
+    .cr-slider::-moz-range-track {
+        height: 10px;
+    }
+
+    .cr-slider {
+        width: initial;
+    }
+}

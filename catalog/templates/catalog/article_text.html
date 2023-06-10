@@ -1,0 +1,47 @@
+{% extends "base_generic.html" %}
+
+{% block title %}<title>{{ article.title_article }}</title>{% endblock %}
+
+{% block content %}
+    {% load users_tags %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/articles.css' %}">
+    <main>
+        {% if request.user == article.author %}
+        <div class="article_options_container">
+            <div class="sidebar_btn article_options_btn">
+                <img class="like_img" src="{% static 'images/design/slide_menu_icon.png' %}" alt="">
+            </div>
+            <div class="article_options_menu_container popup_slide" style="display: none;">
+                <p><a class="nav_link" href="{% url 'article_update' article.pk %}">Edit article</a></p>
+            </div>
+        </div>
+        {% endif %}
+        <h1>{{ article.title_article }}</h1>
+        {% autoescape  off %}
+            <div class="text_article">{{ article.text_article }}</div>
+        {% endautoescape %}
+        <br>
+        <p>Дата публикации: {% format_time article.publish_time %}</p>
+        <p>Автор статьи: <a href="{% url 'user_profile' article.author.username %}">{{ article.author.username }}</a></p>
+        {% get_likes_tag request article as likes %}
+        {% include "likes_template.html" %}
+        {% get_comments_tag request article as comments %}
+        {% include "comments_template.html" %}        
+    </main>
+{% endblock %}
+{% block rightBar %}
+    <div class="table_of_contents_container">
+        <div class="table_of_contents_title"><h2>Содержание:</h2></div>
+        <div class="table_of_contents_body"><ul></ul></div>
+    </div>
+{% endblock %}
+{% block scripts %}
+{% load static %}
+    <script src="{% static 'scripts/text_render.js' %}"></script>
+    <script src="{% static 'scripts/contents_article.js' %}"></script>
+    <script>
+        render_text (text_class='text_article');
+    </script>
+    <script src="{% static 'scripts/article.js' %}"></script>
+{% endblock %}

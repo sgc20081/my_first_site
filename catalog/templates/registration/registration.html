@@ -1,0 +1,46 @@
+{% extends "base_generic_without_rightbar.html" %}
+ 
+{% block content %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'styles/profile_update.css' %}">
+  <main>
+    <div class="profile_form_container">
+      <form class="registration_form" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="profile_photo_form_container">
+          <img class="profile_photo_in_profile_default" src="{% static 'images/design/login_icon.svg' %}" alt="">
+          <p><input type="file" name="profile_photo" accept="image/*" id="id_profile_photo" style="display: none"></p>
+          <p><label class="sidebar_btn upload_photo_submit" for="id_profile_photo">Upload photo</label></p>
+        </div>
+        <div class="profile_data_form_conatiner">
+            {% if form.username.errors %}
+              <p><input class="input_error" type="text" name="username" maxlength="20" required="" id="id_username" value="" placeholder="Username*"></p>
+              <p class="error" id="id_username_error">Пользователь с таким именем уже существует</p>
+            {% else %}
+              <p><input type="text" name="username" maxlength="20" required="" id="id_username" value="" placeholder="Username*"></p>
+            {% endif %}
+            <p><input type="text" name="first_name" maxlength="20" id="id_first_name" value="" placeholder="First name"></p>
+            <p><input type="text" name="last_name" maxlength="20" id="id_last_name" value="" placeholder="Second name"></p>
+            {% if form.email.errors %}
+              <p><input class="input_error" type="email" name="email" maxlength="254" autofocus="" required="" id="id_email" placeholder="E-mail*"></p>
+              <p class="error" id="id_email_error">Пользователь с таким Email уже существует</p>  
+            {% else %}
+              <p><input type="email" name="email" maxlength="254" autofocus="" required="" id="id_email" placeholder="E-mail*"></p>
+            {% endif %}
+            {% if form.password1.errors %}
+              <p><input class="input_error" type="password" name="password1" autocomplete="new-password" required="" id="id_password1" placeholder="Password*"></p>
+              <p class="error" id="id_password1_error">Пароли не совпадают</p>   
+            {% else %}
+              <p><input type="password" name="password1" autocomplete="new-password" required="" id="id_password1" placeholder="Password*"></p>
+            {% endif %}  
+            <p><input type="password" name="password2" autocomplete="new-password" required="" id="id_password2" placeholder="Confirm password*"></p>
+            <button type="submit" id="submit_btn_profile_form" style="display: none;">Registration</button>
+        </div>
+      </form>
+    </div>
+    <label class="sidebar_btn update_profile_submit" for="submit_btn_profile_form">Registration</label>
+  </main>
+{% endblock %}
+{% block scripts %}
+  <script src="{% static 'scripts/profile_update.js' %}"></script>
+{% endblock %}

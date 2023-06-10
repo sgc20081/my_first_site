@@ -1,0 +1,85 @@
+{% extends "base_generic_without_rightbar.html" %}
+
+{% block title %}<title>My first site</title>{% endblock %}
+
+{% block content %}
+
+<head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles/gallery.css' %}">
+</head>
+    <main>
+        {% load users_tags %}
+        {% if request.user == gallery.author %}
+            <div class="gallery_options_container">
+                <div class="sidebar_btn gallery_options_btn">
+                    <img class="like_img" src="{% static 'images/design/slide_menu_icon.png' %}" alt="">
+                </div>
+                <div class="gallery_options_menu_container popup_slide" style="display: none;">
+                    <p class="nav_link gallery_img_popup_btn">Upload new photo</p>
+                    <p class="gallery_delete_btn">Delete gallery</p>
+                    <div class="gallery_delete_confirm_container" style="display: none;">
+                        <p>Are you sure you want to delete the gallery?</p>
+                        <p><a href="{% url 'gallery_delete' gallery.id %}">Yes I want to delete the gallery</a></p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if big_img != None %}
+        <div class="gallery_big_img_container">
+            <img class="gallery_big_img" src="{{ big_img.image.url }}" alt="" id="big_img_{{ big_img.id }}">
+            <div class="gallery_big_img_text_container">
+                <p>{{ big_img.image_text_description }}</p>
+            </div>
+            <div class="gallery_img_options_container">
+                {% if request.user == big_img.author %}
+                    <a class="delete_gallery_img_btn" href="{% url 'gallery_image_delete' big_img.id %}">
+                        <img class="like_img" src="{% static 'images/delete_icon.png' %}" alt="" type="submit">
+                    </a>
+                {% endif %}
+                <div class="likes_container">
+                    {% get_likes_tag request big_img as likes %}
+                    {% include "likes_template.html" %}
+                </div>
+            </div>
+        </div>
+        <div class="galleryBar scroll_line">
+            {% for image in gallery_images %}
+                <div class="gallery_image_container">
+                    <a href="{% url 'gallery_view_image' image.author.username image.id %}"></a>
+                    <img class="gallery_img" id="image_{{ image.id }}" src="{{ image.image.url }}" alt="">
+                </div>
+            {% endfor %}
+        </div>
+        <hr>
+        <div class="big_image_object_content">
+            <div class="comments_container">
+                <h2>Comments</h2>
+                {% get_comments_tag request big_img as comments %}
+                {% include "comments_template.html" %}
+            </div>
+        </div>
+        {% else %}
+            <p class="bold_text">The user has not uploaded any images yet</p>
+        {% endif %}
+        {% if request.user == gallery.author %}
+            <div class="gallery_new_img_form_container" style="display: none;">
+                <div class="gallery_new_img_preview_container">
+                    <img class="gallery_new_img_preview" src="{% static 'images/design/img_preload.png' %}" alt="">
+                </div>
+                <form class="gallery_new_img_form" action="{% url 'gallery_view' gallery.author.username %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="image" accept="image/*" required="" id="id_image" style="display: none;">
+                    <label class="sidebar_btn gallery_select_img_btn" for="id_image"><img class="like_img" src="{% static 'images/design/upload_icon.png' %}" alt="">Select image</label>
+                    <textarea name="image_text_description" cols="40" rows="10" id="id_image_text_description" placeholder="Write a description for the photo..."></textarea>
+                    <button class="sidebar_btn" type="submit">Upload photo</button>
+                </form>
+            </div>
+        {% endif %}
+    </main>
+{% endblock %}
+{% block rightBar %}<p>Dynamic content</p>{% endblock %}
+{% block scripts %}
+    {% load static %}
+    <script src="{% static 'scripts/gallery.js' %}"></script>
+{% endblock %}

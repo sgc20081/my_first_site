@@ -1,0 +1,143 @@
+.comment {
+    border: solid 2px black ;
+    margin-bottom: 5px;
+    width: 65%;
+    padding: 10px;
+    border-radius: 12px;
+
+}
+
+.first_comm {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.second_comm {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.comment_author_profilephoto_container {
+    width: 15%;
+    height: auto;
+
+    margin-right: 25px;
+}
+
+.comment_author_profilephoto {
+    width: 100%;
+}
+
+.comment_body_container{
+    width: 80%;
+}
+
+.comment_author_profilephoto_container, .comment_body_container {
+    display: inline-block;
+
+    vertical-align: top;
+}
+
+.comment_publish_time {
+    display: inline-block;
+
+    vertical-align: bottom;
+
+    margin-left: 10px;
+}
+
+.comment_info_container, .comment_text_container, .comment_options_container, .parent_comm_text {
+    margin-bottom: 15px;
+}
+
+.comment_text_container, .parent_comm_text {
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.comment_reply_btn_container, .comment_likes_contaiiner, .comment_delete_btn_contaiiner {
+    display: inline-block;
+
+    margin-right: 15px;
+
+    vertical-align: top;
+}
+
+.comment_options_container textarea {
+    width: 100%;
+}
+
+.new_comment_form_container {
+    width: 65%;
+
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.comment_form.new_comment_form button {
+    margin-top: 15px;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.comment_submit_lable {
+    display: block;
+    text-align: right;
+
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: 5px;
+}
+
+.comment_submit_lable.disabled{
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.comment_submit_lable.enabled {
+    cursor: pointer;
+}
+
+.reply_comment_form {
+    margin-top: 20px;
+}
+
+
+/* ----------- Mobile ----------- */
+
+@media screen and (max-width: 1000px) {
+
+    .comment, .new_comment_form_container {
+        width: 90%;
+    }
+    
+    .new_comment_form_container textarea {
+        width: 100%;
+    }
+
+    .comment_author_profilephoto_container {
+        height: auto;
+        width: 25%;
+    }
+
+    .comment_author_profilephoto_container, .comment_body_container {
+        display: inline-block;
+    }
+
+    .comment_body_container {
+        width: 65%;
+    }
+
+    .comment_text_container, .comment_options_container {
+        font-weight: normal;
+    }
+
+    .publish_time {
+        font-size: 12px;
+    }
+
+    .comment_reply_btn_container, .comment_likes_contaiiner, .comment_delete_btn_contaiiner {  
+        margin-right: 15px;
+    }
+
+    .comment_submit_lable {
+        font-weight: bolder;
+    }
+}

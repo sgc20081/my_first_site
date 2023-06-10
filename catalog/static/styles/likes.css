@@ -1,0 +1,115 @@
+.likes_container {
+    width: fit-content;
+}
+
+.label_likes_container, .like_img {
+    width: 20px;
+    height: 20px;
+    
+    display: flex;
+
+    align-items: center;
+}
+
+.label_likes_container label {
+    margin-right: 10px;
+}
+
+.label_likes_container:hover, .like_img:hover {
+    cursor: pointer;
+}
+
+.users_liked_container {
+    height: 10em;
+    min-height: 150px;
+    max-height: 20%;
+
+    min-width: 500px;
+    max-width: 30%;
+
+    text-align: initial;
+
+    position: absolute;
+}
+
+.users_liked_container_title {
+    text-align: center;
+
+    margin-bottom: 20px;
+}
+
+.users_liked_container_body {
+    overflow-y: auto;
+    height: 75%;
+}
+
+.user_like_container {
+    display: inline-block;
+
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.profile_photo_like_container, .profile_photo_like_container_default {
+
+    width: 2.5em;
+    height: 2.5em;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ----------- Mobile ----------- */
+
+@media screen and (max-width: 1000px) {
+
+    .label_likes_container {
+        font-weight: bold;
+    }
+
+    .label_likes_container, .like_img {
+        width: auto;
+        height: 20px;
+    }
+
+    .users_liked_container {
+        width: 90vw;
+        height: 50vh;
+
+        position: fixed;
+
+        left: 2.5vw;
+
+        min-width: initial;
+        max-width: initial;
+        min-height: 50vh;
+        max-height: 50vh;
+    }
+
+    .users_liked_container_body {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: inherit;
+    }
+
+    .user_like_container {
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+
+    .user_like_container a {
+        justify-content: center;
+        align-items: center;
+
+        display: inline-flex;
+    }
+
+    .user_like_container a .profile_photo_like_container, .user_like_container a .profile_photo_like_container_default {
+        margin-right: 15px;
+    }
+
+    .profile_photo_like_container img, .profile_photo_like_container_default img {
+        width: 100%;
+        height: 100%;
+    }
+}

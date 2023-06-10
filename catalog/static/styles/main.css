@@ -1,0 +1,969 @@
+/* Подключение альтернативной блочной модели */
+html {
+    font-family: 'Inter', serif;
+    font-weight: bolder;
+    color: #ffffff;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+}
+  
+*, *::before, *::after {
+    box-sizing: inherit;
+    z-index: 0;
+}
+
+@viewport {
+    height: device-height;
+}
+
+@font-face {
+    font-family: 'vinqueregular';
+    src: url('../fonts/ofont.ru_vinque_rg-webfont.woff2') format('woff2'),
+         url('../fonts/ofont.ru_vinque_rg-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Medium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Regular.woff') format('woff');
+    font-weight: regular;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-ExtraBold.woff') format('woff');
+    font-weight: bolder;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-Light.woff') format('woff');
+    font-weight: light;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('../fonts/Inter-ExtraLight.woff') format('woff');
+    font-weight: lighter;
+    font-style: normal;
+}
+
+hr {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bold_text {
+    font-weight: bolder;
+}
+
+body {
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 1);
+    background-image: url(../images/design/BG.png);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+body, .scroll_line {
+    scrollbar-width: thin;
+    scrollbar-color: #4E4E4E #424242;
+}
+
+body::before {
+    position: absolute;
+    filter: blur(50px);
+    height: 100%;
+
+    top: 0;
+    bottom: 0;
+}
+
+/* Установка ширины полосы прокрутки */
+body::-webkit-scrollbar, .scroll_line::-webkit-scrollbar { 
+    width: 4px;
+}
+
+/* Стилизация бегунка полосы прокрутки */
+body::-webkit-scrollbar-thumb, .scroll_line::-webkit-scrollbar-thumb {
+    
+    left: 0px;
+    top: 0px;
+
+    background: #4E4E4E;
+    border-radius: 12px;
+}
+
+/* Стилизация дорожки полосы прокрутки */
+body::-webkit-scrollbar-track, .scroll_line::-webkit-scrollbar-track {
+
+    left: 268px;
+    top: 0px;
+
+    background: #424242;
+    border-radius: 12px;
+}
+
+main, .rightBar {
+    display: inline-block;
+
+    margin-top: 16.5%;
+    margin-bottom: 3%;
+    /*
+    margin-left: auto;
+    margin-right: auto;
+    */
+    padding: 2%;
+
+    width: 74%;
+    min-height: 100%;
+    
+    background: rgba(2, 1, 25, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(2px);
+
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 12px;
+}
+
+input, textarea {
+
+    padding: 11px 12px;
+
+    width: 100%;
+    height: 12%;
+
+    background: #FFFFFF;
+    border: 1px solid #572F8A;
+    border-radius: 8px;
+}
+
+textarea {
+    height: auto;
+}
+
+.error {
+    color: red;
+}
+
+.input_error {
+    border: 1px solid red; color: red
+}
+
+textarea {
+    resize: none;
+}
+
+.popup_profile_menu, .popup_profile_menu_mobile, .popup{
+    position: fixed;
+    background-color: rgba(16, 0, 61, 1);
+    border: 1px solid #572F8A;
+    backdrop-filter: blur(50px);
+    border-radius: 12px;
+    top: 5%;
+
+    text-align: center;
+}
+
+.popup_slide {
+    background-color: rgba(16, 0, 61, 1);
+    border: 1px solid #572F8A;
+    backdrop-filter: blur(50px);
+    border-radius: 12px;
+
+    padding-left: 15px;
+    padding-right: 15px;
+
+    text-align: center;
+}
+
+.popup_slide p, .popup_slide a {
+    font-family: 'Inter', serif;
+    font-weight: bold;
+    font-size: 19px;
+    color: rgba(255, 255, 255, 1); 
+}
+
+.popup {
+    text-align: initial;
+}
+
+.popup_profile_menu a, .popup_profile_menu_mobile a{
+    font-family: 'Inter', serif;
+    font-weight: bold;
+    font-size: 19px;
+    color: rgba(255, 255, 255, 1);  
+}
+
+.popup_profile_menu{
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.popup_profile_menu p{ 
+    margin: 0px;
+    text-align: center;
+}
+
+.popup {
+    min-width: 35vw;
+    min-height: 32vh;
+
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    position: fixed;
+    z-index: 2;
+}
+
+.popup_close_btn {
+    cursor: pointer;
+    margin: 15px;
+    margin-left: 95%;
+    height: 4%;
+    width: auto;
+}
+
+.sidebar_btn {
+    width: auto;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 9px 24px;
+
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+
+    font-family: 'Inter', serif;
+    font-weight: bold;
+    font-size: 19px;
+    color: rgba(255, 255, 255, 1);
+}
+
+.sidebar_btn:hover {
+    background:rgba(255, 255, 255, 1);
+    color: rgba(61, 5, 131, 1);
+    cursor: pointer;
+}
+
+.nav_btn {
+    margin-left: 32px;
+    margin-right: 32px;
+
+    height: 100%;
+}
+
+.nav_link {
+    text-decoration: none;
+}
+
+.login_form_title {
+    display: inline-flex;
+    align-items: center;
+}
+
+.login_container {
+    text-align: center;
+    margin-top: -15px;
+}
+
+.login_form_container {
+    width: 100%;
+    height: 100%;
+}
+
+.login_form {
+    display: block;
+    width: 100%;
+}
+
+.login_form_btn {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.btns_forms_container {
+    display: flex; 
+    justify-content: center;
+}
+
+.parent_msg, .parent_comm_text {
+    padding: 10px;
+    
+    background: rgba(255, 255, 255, 0);
+    
+    margin-top: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+}
+
+.chat_msg_publish_time, .publish_time {
+    display: flexbox;
+    text-align: right;
+    font-size: 12px;
+    color: #6b6b6b;
+}
+
+
+.jodit-wysiwyg {
+    color: #4c4c4c;
+}
+
+.athenticate_need_msg {
+    font-weight: bolder;
+    
+    text-align: center;
+}
+
+.popup_ajax_content {
+    text-align: center;
+}
+
+.popup_ajax_content p {
+    font-weight: bolder;
+}
+
+/*
+html {
+    width: 100%;
+    margin-left: none;
+    z-index: 0;
+
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    width: initial;
+}
+
+main {
+    border: 2px solid rgb(169,97,43);
+    background-color: green;
+    min-height: 500px;
+    width: 74%;
+    display: inline-block;
+    padding: 5%;
+}
+
+.rightBar {
+    border: 2px solid rgb(169,97,43);
+}
+
+.navButton:hover {
+    color: rgb(255,255,255);
+}
+
+.popupProfileMenu {
+    background-color: rgb(100, 59, 27);
+    border: 2px solid rgb(169,97,43);
+    width: min-content;
+    padding: 10px;
+    display: none;
+}
+
+.popup_close, .navMobileClose, .profileClose {
+    padding: 0;
+    margin: 0;
+    bottom: 0px;
+    min-height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(136, 136, 136, 0.5);
+}
+
+.forum_message_buttons {
+    display: flex;
+}
+
+.forum_btn {
+    height: max-content;
+}
+
+a {
+    color: bisque;
+}
+
+a:hover {
+    color: aquamarine;
+}
+
+.chat-log {
+    max-height: 250px;
+    overflow-y: auto;
+}
+*/
+
+/* ----------- Desktop ----------- */
+
+@media screen and (min-width: 1001px) { 
+    
+    body {
+        background-size: 100% auto;
+    }
+
+    .mobile {
+        display: none;
+    }
+
+    .rightBar {
+        display: inline;
+
+        width: 25%;
+        min-height: 200px;
+
+        float: right;
+    }
+
+    button {
+        display: inline-flex;
+        border: none;
+    }
+
+    .sideBarDesktop {
+        position: absolute;
+        width: 94%;
+        height: 12%;
+        top: 40px;
+        left: 40px;
+        right: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        z-index: 1;
+    }
+
+    .logo {
+        position: absolute;
+        left: 0px;
+        width: 5%;
+        height: 66%;
+    }
+
+    .nav_btns_containers {
+        width: auto;
+        height: 66%;
+        position: absolute;
+        display: inline-flex;
+        justify-content: center;
+    }
+
+    .login_btn_container {
+        display: contents;
+    }
+
+    .login_link {
+        position: absolute;
+        right: 0px;
+        height: 66%;
+    }
+
+    .login_btn, .profile_btn {
+        position: absolute;
+        right: 0px;
+        width: auto;
+        height: 100%;
+    }
+
+    .login_link {
+        position: absolute;
+        z-index: 3;
+    }
+
+    .login_icon{
+        padding-right: 10px;
+    }
+
+    
+
+    .profile_photo_cut_container {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .profile_photo_container, .profile_photo_container_default {
+        display: flex;
+        margin-right: 0.5em;
+
+        width: 1.5em;
+        height: 1.5em;
+
+        overflow: hidden;
+
+        max-width: auto;
+        max-height: auto;
+    }
+
+    .profile_photo_container {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 100%;
+    }
+
+    .profile_photo_container img {
+        width: 100%;
+        height: 100%;
+
+        justify-content: center;
+        text-align: center;
+
+        margin-bottom: auto;
+        margin-top: auto;
+    }
+
+    .profile_photo_cut_container{
+        width: 300px;
+        height: 300px;
+    }
+
+    .content {
+        position: relative;
+        min-height: 100%;
+    }
+
+    .sideBarProfilePhoto {
+        width: 1.3em;
+        height: 1.3em;
+    }
+
+    .popupProfileMenu {
+        margin-left: 92%;
+    }
+
+    .navigation {
+        width: 100%;
+        padding-top: 14em;
+        text-align: center;
+    }
+    
+    .navButton {
+        width: 19%;
+        height: 50px;
+        background-color: green;
+        border-radius: 15px;
+        display: inline-grid;
+        padding-top: 1em;
+    }
+
+    .nav_link {
+        color: black;
+    }
+
+    .navigationMobile {
+        display: none;
+        height: 100%;
+        width: 80%;
+        background-color: rgb(100, 59, 27);
+        text-align: center;
+        position: fixed;
+        
+    }
+    
+    .navButtonMobile {
+        display: none;
+    }
+
+    /*
+    .content {
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+        height: auto;
+        padding-top: 10em;
+    }
+    */
+    header {
+        margin-bottom: 5%;
+        height: 300px;
+    }
+    /*
+    .popup {
+        background-color: grey;
+        min-width: 100px;
+        min-height: 10px;
+        padding: 10px;
+        border: 2px solid black;
+        position: absolute;
+        z-index: 1;
+        top: 0; left: 0;
+    }
+    */
+}
+
+/* ----------- Mobile ----------- */
+
+@media screen and (max-width: 1000px) { 
+    
+    html {
+        width: 100%;
+    }
+
+    body {
+        background-size: auto 110%;
+
+        height: 91vh;
+        
+        background-image: url(../images/design/BG_mobile.png);
+        background-attachment: initial;
+        background-repeat: repeat-y;
+        /*
+        position: fixed;
+        overflow-y: scroll;
+        */
+    }
+
+    p {
+        font-weight: normal;
+    }
+
+    hr {
+        /*
+        margin-top: 50px;
+        margin-bottom: 50px;
+        */
+        border: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    main {
+        margin-top: 15vh;
+        margin-bottom: 10vh;
+    }
+
+    main, .rightBar {
+        font-size: 16px;
+
+        display: block;
+    }
+
+    main *, .rightBar * {
+        font-size: inherit;
+    }
+
+    h1 {
+        font-size: 35px;
+    }
+
+    h2 {
+        font-size: 25px;
+    }
+
+    .rightBar {
+        width: 100%;
+
+        margin-top: 3%;
+    }
+
+    textarea {
+        width: 95%;
+    }
+
+    .mobile_sidebar, .mobile_nav_menu {
+        background: rgba(2, 1, 25, 0.9);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(2px);
+        
+        position: fixed;
+
+        top: 0;
+        left: 0;
+        
+        display: flex;
+        text-align: center;
+    }
+
+    .mobile_sidebar {
+        width: 100%;
+        height: 10vh;
+        
+        display: flex;
+        align-items: center;
+
+        z-index: 1;
+    }
+
+    .mobile_nav_menu {
+        width: 80%;
+        height: 100%;
+
+        padding-top: 10%;
+
+        display: none;
+        
+        z-index: 5;
+    }
+
+    .mobile_close_nav_menu {
+        width: 100%;
+        height: 100%;
+
+        position: fixed;
+
+        top:0;
+        left: 0;
+
+        z-index: 4;
+    }
+
+    .nav_link_mobile {
+        margin-bottom: 10px;
+    }
+
+    .profile_btn_mobile {
+        height: 100%;
+
+        display: flex;
+        align-items: center;
+
+        margin-right: 15px;
+    }
+
+    .sideBarDesktop {
+        display: none;
+    }
+
+    .mobile_navigation_menu_btn{
+        height: 70%;
+        width: auto;
+
+        margin-left: 10px;
+        vertical-align: middle;
+        cursor: pointer;
+    }
+
+    .nav_link_mobile {
+        height: auto;
+
+        display: inline-block;
+    }
+
+    .profile_photo_container, .profile_photo_container_default {
+        display: inline-block;
+        margin-right: 0.5em;
+
+        width: auto;
+        height: 60%;
+
+        overflow: hidden;
+
+        max-width: auto;
+        max-height: auto;
+    }
+
+    .login_icon {
+        width: auto;
+        height: 50%;
+
+        padding-right: 20px;
+    }
+
+    .profile_photo_container {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 100%;
+    }
+
+    .profile_photo_container img {
+        width: 100%;
+        height: 100%;
+
+        justify-content: center;
+        text-align: center;
+
+        margin-bottom: auto;
+        margin-top: auto;
+    }
+
+    .profile_btn_mobile, .popup_profile_menu_mobile a, .nav_link_mobile {
+        font-size: 18px;
+    }
+
+    .sidebar_btn {
+        width: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+        margin-left: 2vw;
+        margin-right: 2vw;
+
+        font-size: 18px;
+    }
+
+    .login_link_mobile {
+        height: 100%;
+        width: auto;
+
+        position: absolute;
+        right: 0;
+
+        display: flex;
+        align-items: center;
+
+        cursor: pointer;
+    }
+
+    .popup {
+        width: 95%;
+        min-height: 32%;
+
+        font-size: 18px;
+    }
+
+    .popup *, .popup * * {
+        font-size: inherit;
+    }
+
+    .login_container img{
+        height: 20px;
+        width: auto;
+    }
+
+    .login_form_btn {
+        width: auto;
+
+        padding-left: 20px;
+        padding-right: 20px;
+
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+
+    .sideBarProfilePhoto {
+        width: 10%;
+        height: 10%;
+    }
+
+    header {
+        margin-top: 0;
+        margin-bottom: 0;
+        height: 300px;
+    }
+
+    .navigationMobile {
+        height: 100%;
+        width: 80%;
+        background-color: rgb(100, 59, 27);
+        text-align: center;
+        display: none;
+        position: fixed;
+        z-index: 2;
+    }
+    
+    .navButtonMobile {
+        
+    }
+
+    .navButton {
+        display: none;
+    }
+    
+    .content {
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        min-height: auto;
+    }
+
+    .profile_photo_cut_container {
+        margin-left: auto;
+        margin-right: auto;
+
+        width: 600px;
+        height: 600px;
+    }
+    
+    main {
+        width: 100%;
+    }
+
+    /* НОВЫЕ СТИЛИ */
+
+    button {
+        display: inline-flex;
+        border: none;
+    }
+
+    .logo {
+        position: absolute;
+        left: 0px;
+        width: 5%;
+        height: 66%;
+    }
+
+    .nav_btns_containers {
+        width: auto;
+        height: 66%;
+        position: absolute;
+        display: inline-flex;
+        justify-content: center;
+    }
+
+    .login_link {
+        position: absolute;
+        right: 0px;
+        height: 66%;
+    }
+
+    .login_btn, .profile_btn {
+        position: absolute;
+        right: 0px;
+        width: auto;
+        height: 100%;
+    }
+
+    .login_link {
+        position: absolute;
+        z-index: 3;
+    }
+
+    .content {
+        position: initial;
+        min-height: 100%;
+    }
+
+    .login_form_container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .login_form {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    .btns_forms_container {
+        display: flex; 
+        justify-content: center;
+    }
+}
+

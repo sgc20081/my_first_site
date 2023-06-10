@@ -1,0 +1,26 @@
+{% load static %}
+{% block content %}
+  <div class="login_container">
+    <div class="redirect_page" style="display: none;">{{ redirect_page }}</div>
+    <div class="login_form_title">
+      <img class="login_icon" src="{% static 'images/design/login_icon.svg' %}" alt="">
+      <p class="bold_text">Login/Signin</p>
+    </div>
+    <form class="login_form" method="post">
+      {% csrf_token %}
+      <p><input type="text" name="username_or_email" maxlength="254" required="" id="id_email" placeholder="Username or email*"></p>
+      <p><input type="password" name="password" maxlength="128" required="" id="id_password" placeholder="Password*"></p>
+      {% if form.errors.email or form.errors.password %}
+        <p>Неверные имя пользователя либо пароль</p>
+      {% endif %}
+        <p>
+        <div class="btns_forms_container">
+          <button class="sidebar_btn login_form_btn" type="submit">Login</button>
+          <a class="nav_link" href="{% url 'registration' %}?next={{ redirect_page }}"><div class="sidebar_btn login_form_btn">Registration</div></a>
+        </div>
+    </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="{% url 'password_reset' %}" class="bold_text">Restore password</a></p>
+  </div>
+{% endblock %}

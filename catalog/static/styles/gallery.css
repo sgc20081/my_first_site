@@ -1,0 +1,130 @@
+.galleryBar {
+    display: flex; /* Метод отображения элементов внутри контейнера списка */ 
+    height: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
+
+    z-index: 0;
+}
+
+.gallery_image_container, .galleryImageSelected {
+    height: 100px;
+    width:  100px;
+    display: inline-block;
+    flex-shrink: 0; /* Определяет степень сжатия элементов в переполненном контейнере */
+    
+    
+}
+
+.gallery_image_container, .galleryImageSelected, .gallery_image_container img {
+    z-index: unset;
+}
+
+.galleryImageSelected {
+    border: 5px solid grey;
+    opacity: 50%;
+    background-color: rgb(128, 128, 128,);
+
+    position: relative;
+    z-index: -1;
+}
+
+.gallery_image_container img, .galleryImageSelected img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery_big_img_container {
+    width:  100%;
+    margin: 15px;
+}
+
+.gallery_big_img_container > img {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+}
+
+.gallery_options_container {
+    width: 100%;
+
+    text-align: right;
+}
+
+.gallery_options_btn {
+
+}
+
+.delete_gallery_img_btn, .likes_container {
+    display: inline-flex;
+
+    margin-right: 15px;
+}
+
+.gallery_new_img_form button {
+    margin-right: 0;
+    margin-left: auto;
+    margin-top: 15px;
+}
+
+.gallery_new_img_preview_container {
+    height: 20vh;
+    max-height: 20vh;
+
+    width: auto;
+
+    margin-bottom: 15px;
+}
+
+.gallery_new_img_preview {
+    height: 100%;
+    width: auto;
+
+    display: flex;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gallery_select_img_btn {
+    margin-bottom: 15px;
+}
+
+.gallery_select_img_btn img {
+    margin-right: 15px;
+}
+
+hr {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.sidebar_btn.gallery_options_btn {
+    width: fit-content;
+
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.gallery_delete_confirm_container {
+    text-align: center;
+}
+
+
+/* ----------- Mobile ----------- */
+
+@media screen and (max-width: 1000px) {
+
+    .gallery_big_img_container {
+    width: 95%;
+    height: auto;
+
+    margin-right: auto;
+    margin-left: auto;
+    }
+
+    .gallery_new_img_form textarea {
+        width: 100%;
+    }
+}
