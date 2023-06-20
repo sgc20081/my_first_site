@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-qgcn(ah46k8e3f)ft$oxoxrsl2%d2j6$b4zayh=g(#23i8uj7m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'd827-46-46-103-193.ngrok-free.app']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'dafe-46-46-103-193.ngrok-free.app']
 
 # Application definition
 
@@ -88,8 +88,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     },
     'db2': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db2.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'db2',
+        'USER': 'postgres',
+        'PASSWORD': 'q1346798520',
+        'HOST': '4.tcp.eu.ngrok.io',
+        'PORT': '12800',
     }
 }
 
@@ -158,14 +162,14 @@ CHANNEL_LAYERS = {
 
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
-CSRF_TRUSTED_ORIGINS = ['https://d827-46-46-103-193.ngrok-free.app','https://*.127.0.0.1','ws://d827-46-46-103-193.ngrok-free.app',]
+CSRF_TRUSTED_ORIGINS = ['https://dafe-46-46-103-193.ngrok-free.app','https://*.127.0.0.1','ws://d827-46-46-103-193.ngrok-free.app',]
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:8000',
-    'https://d827-46-46-103-193.ngrok-free.app',  # замените xxxxx на вашу subdomain в Ngrok
+    'https://dafe-46-46-103-193.ngrok-free.app',  # замените xxxxx на вашу subdomain в Ngrok
 )
 
 CORS_ALLOW_METHODS = (

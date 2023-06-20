@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .forms import *
+from .models import *
 
 # Create your views here.
 
@@ -16,4 +17,8 @@ def index (request, *args, **kwargs):
     else:
         form = TestModelShardingForm()
 
-    return render(request, 'db_main.html', {'form': form})
+    data_list = TestModelSharding.objects.using('db2').all()
+
+    print(f'data_list {data_list}')
+
+    return render(request, 'db_main.html', {'form': form, 'data_list': data_list})
