@@ -92,8 +92,8 @@ DATABASES = {
         'NAME': 'db2',
         'USER': 'postgres',
         'PASSWORD': 'q1346798520',
-        'HOST': '4.tcp.eu.ngrok.io',
-        'PORT': '12800',
+        'HOST': '7.tcp.eu.ngrok.io',
+        'PORT': '17369',
     }
 }
 
