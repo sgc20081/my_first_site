@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'dafe-46-46-103-193.ngrok-free.app']
 # Application definition
 
 INSTALLED_APPS = [
+    'graphene_django',
     'daphne',
     'psycopg2',
     'corsheaders',
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
     'test_db_sharding',
+    'graphql_test',
 ]
 
 MIDDLEWARE = [
@@ -94,7 +96,15 @@ DATABASES = {
         'PASSWORD': 'q1346798520',
         'HOST': '7.tcp.eu.ngrok.io',
         'PORT': '17369',
+    },
+    'db_qgraphql_test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db_graphql_test.sqlite3',
     }
+}
+
+GRAPHENE = {  
+    'SCHEMA': 'my_first_site.schema.schema'
 }
 
 AUTH_USER_MODEL = 'catalog.CustomUser'
@@ -138,6 +148,11 @@ USE_TZ = True
 #STATIC_URL = '/static/'
 STATIC_URL = '/catalog/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'catalog', 'static'),  # Директория статических файлов приложения app1
+    os.path.join(BASE_DIR, 'graphql_test', 'static'),  # Директория статических файлов приложения app2
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
@@ -163,6 +178,9 @@ CHANNEL_LAYERS = {
 DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 CSRF_TRUSTED_ORIGINS = ['https://dafe-46-46-103-193.ngrok-free.app','https://*.127.0.0.1','ws://d827-46-46-103-193.ngrok-free.app',]
+
+#CSRF_COOKIE_SECURE = False
+#CSRF_COOKIE_SAMESITE = None
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True

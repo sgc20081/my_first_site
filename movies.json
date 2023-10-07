@@ -1,0 +1,25 @@
+[
+    {
+      "model": "graphql_test.actor",
+      "pk": 1,
+      "fields": {
+        "name": "Michael B. Jordan"
+      }
+    },
+    {
+      "model": "graphql_test.actor",
+      "pk": 2,
+      "fields": {
+        "name": "Sylvester Stallone"
+      }
+    },
+    {
+      "model": "graphql_test.movie",
+      "pk": 1,
+      "fields": {
+        "title": "Creed",
+        "actors": [1, 2],
+        "year": "2015"
+      }
+    }
+  ]

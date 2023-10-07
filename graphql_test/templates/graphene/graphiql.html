@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GraphiQL</title>
+  <link rel="stylesheet" href="https://unpkg.com/graphiql@0.17.5/graphiql.min.css" />
+</head>
+<body>
+  <div id="graphiql" style="height: 100vh;"></div>
+
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/graphiql@0.17.5/graphiql.min.js"></script>
+
+  <script>
+    // Функция для отправки запросов GraphQL с CSRF-токеном
+    const graphQLFetcher = graphQLParams => {
+      const csrfToken = document.querySelector('meta[name="X-CSRFToken"]').getAttribute('content'); // Получите CSRF-токен из мета-тега
+      
+      console.log(csrfToken)
+
+      return fetch("/graphql/", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "X-CSRFToken": '' // Включите CSRF-токен в заголовки
+        },
+        body: JSON.stringify(graphQLParams),
+        credentials: "same-origin"
+      })
+        .then(response => response.json())
+        .catch(() => response.text());
+    };
+  
+    ReactDOM.render(
+      React.createElement(GraphiQL, { fetcher: graphQLFetcher }),
+      document.getElementById("graphiql")
+    );
+  </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!-- Ваш файл movie_search_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <form class="movie_graphql_form" method="post">
+        {% csrf_token %}
+        <p>Название фильма</p>
+        <input class="movie_graphql_field" name="title" type="text">
+        <p>Год выпуска</p>
+        <input class="movie_graphql_field" name="year" type="text">
+        <p>Актёр</p>
+        <input class="movie_graphql_field" name="actors" type="text">
+        <button type="submit">Поиск</button>
+    </form>
+
+    <p class="response_field"></p>
+
+    {% load static %}
+    <script src="{% static 'scripts/graphql_query.js' %}"></script>
+
+    {% autoescape off %}
+        {{success}}<br>
+        {{message}}<br>
+        {{response_status}}<br>
+        {{status}}<br>
+        {{request_body}}<br>
+        {{csrf_token_function}}<br>
+        {{csrf_token_cookies}}<br>
+    {% endautoescape %}
+</body>
+</html>

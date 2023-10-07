@@ -20,10 +20,15 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 
+from graphene_django.views import GraphQLView
+from django.views.decorators.csrf import csrf_exempt
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('catalog/', include('catalog.urls')),
     path('test-db/', include('test_db_sharding.urls')),
+    path('graphql/', GraphQLView.as_view(graphiql=True)),
+    path('test-graphql/', include('graphql_test.urls')),
     path('', RedirectView.as_view(url='/catalog/', permanent=True)),
     path('accounts/', include('django.contrib.auth.urls')),
 ]

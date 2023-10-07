@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GraphiQL</title>
+  <link rel="stylesheet" href="https://unpkg.com/graphiql@0.17.5/graphiql.min.css" />
+</head>
+<body>
+  <div id="graphiql" style="height: 100vh;"></div>
+
+  <script crossorigin src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script crossorigin src="https://unpkg.com/graphiql@0.17.5/graphiql.min.js"></script>
+
+  <script>
+     const graphQLFetcher = graphQLParams =>
+    fetch("/graphql/", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(graphQLParams),
+      credentials: "same-origin",
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (data.errors) {
+          throw new Error(JSON.stringify(data.errors));
+        }
+        return data;
+      })
+      .catch(error => {
+        console.error(error);
+        return error;
+      });
+    ReactDOM.render(
+      React.createElement(GraphiQL, { fetcher: graphQLFetcher }),
+      document.getElementById("graphiql")
+    );
+  </script>
+</body>
+</html>
