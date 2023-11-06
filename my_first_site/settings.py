@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'daphne',
     'psycopg2',
     'corsheaders',
+    'django_elasticsearch_dsl',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'test_db_sharding',
     'graphql_test',
+    'test_elasticSearch',
 ]
 
 MIDDLEWARE = [
@@ -85,21 +87,29 @@ WSGI_APPLICATION = 'my_first_site.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db_elasticsearch_test.sqlite3',
+    # },
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': BASE_DIR / 'db.sqlite3',
     },
     'db2': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db2',
-        'USER': 'postgres',
-        'PASSWORD': 'q1346798520',
-        'HOST': '7.tcp.eu.ngrok.io',
-        'PORT': '17369',
+       'ENGINE': 'django.db.backends.postgresql',
+       'NAME': 'db2',
+       'USER': 'postgres',
+       'PASSWORD': 'q1346798520',
+       'HOST': '4.tcp.eu.ngrok.io',
+       'PORT': '16795',
     },
     'db_qgraphql_test': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db_graphql_test.sqlite3',
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': BASE_DIR / 'db_graphql_test.sqlite3',
+    },
+    'db_elasticsearch_test': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': BASE_DIR / 'db_elasticsearch_test.sqlite3',
     }
 }
 
@@ -109,7 +119,8 @@ GRAPHENE = {
 
 AUTH_USER_MODEL = 'catalog.CustomUser'
 
-AUTHENTICATION_BACKENDS = ['catalog.backends.CustomModelBackend']
+#AUTHENTICATION_BACKENDS = ['catalog.backends.CustomModelBackend']
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -200,3 +211,10 @@ CORS_ALLOW_METHODS = (
 )
 
 CORS_ALLOW_HEADERS = '*'
+
+ELASTICSEARCH_DSL={
+    'default': {
+        'hosts': 'http://127.0.0.1:9200',
+        'http_auth': ('elastic', 'ySB6LGiZb6Juwxxp7GQj')
+    }
+}

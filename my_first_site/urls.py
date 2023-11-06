@@ -31,6 +31,8 @@ urlpatterns = [
     path('test-graphql/', include('graphql_test.urls')),
     path('', RedirectView.as_view(url='/catalog/', permanent=True)),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('test-elasticsearch/', include('test_elasticSearch.urls')),
+    path('search/', include('test_elasticSearch.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
