@@ -1,10 +1,3 @@
-# from django.shortcuts import render
-# from .models import Customer, CustomerDocument
-# from django.http import HttpResponse
-
-# from elasticsearch_dsl import Search
-# from elasticsearch_dsl.connections import connections
-
 from .forms import *
 from .models import *
 
@@ -97,51 +90,3 @@ class CustomerElasticSearchDocumentSearch(ElasticSearchDocumentSearch):
     document = CustomerDocument
     form = CustomerForm
     template = 'elasticsearch_form.html'
-
-
-"""
-def search_customers(*args, **kwargs):
-
-    # es = connections.get_connection()
-
-    # Выполняем тестовый запрос
-    # response = es.info()
-
-    # print(f'Ответ сервера Elasticsearch: {response}')
-
-    # s1 = Search(index="customers")
-    # results = s1.execute()
-    # print('Тест по поиску данных: ', results)
-
-    s = CustomerDocument.search().filter("match", first_name="Sergey").execute()
-
-    print('Резултаты??? ', s)
-
-    for hit in s:
-        print('Получен один hit: ', hit.to_dict())
-"""
-"""
-from elasticsearch import Elasticsearch
-
-def search_customers(request):
-    # Создайте подключение к серверу Elasticsearch
-    es = Elasticsearch([{'host': '127.0.0.1', 'port': 9200, 'scheme': 'http'}])
-
-    # Определите ваш поисковый запрос
-    search_query = {
-        "query": {
-            "match": {
-                "first_name": "Sergey"
-            }
-        }
-    }
-
-    # Выполните поисковый запрос
-    response = es.search(index="customers", body=search_query)
-    print('===---=== Результаты: ', response)
-    # Обработка результатов
-    hits = response.get('hits', {}).get('hits', [])
-    results = [hit.get('_source', {}) for hit in hits]
-
-    print('===+++=== Результаты: ', results)
-"""
