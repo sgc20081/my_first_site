@@ -25,8 +25,8 @@ class ElasticSearchDocumentSearch:
 
         if self.document is None:
             raise TypeError(f" <{self.__class__.__name__}> must contain an indexing document")
-
-        if isinstance(self.form(), forms.ModelForm) or isinstance(self.form(), forms.Form):
+        
+        if self.form is not None and (isinstance(self.form(), forms.ModelForm) or isinstance(self.form(), forms.Form)):
             request = args[0]
             self.processing_request(request)
         else:
